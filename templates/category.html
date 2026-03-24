@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %} الفئات {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mt-4">📂 تصفح الفئات</h2>
+    <div class="product-grid">
+        {% for category in category %}
+            <div class="product-card">
+                {% if category.image %}
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}" class="product-image">
+                {% endif %}
+                <div class="product-info">
+                    <h3 class="product-title">{{ category.name }}</h3>
+                    <p class="product-description">{{ category.description }}</p>
+                    <a href="{% url 'product' category.id %}" class="btn">استعراض المنتجات</a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="no-data">⚠️ لا توجد فئات متاحة حاليًا.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 2rem;
+    }
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .product-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        overflow: hidden;
+        text-align: center;
+        max-width: 250px; /* تحديد العرض الأقصى للبطاقة */
+        margin: auto;
+    }
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+    .product-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+    .product-info {
+        padding: 1.2rem;
+    }
+    .product-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        color: #ff9800;
+    }
+    .product-description {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 1rem;
+    }
+    .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        background: #ff9800;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s, color 0.3s;
+    }
+    .btn:hover {
+        background: #e68a00;
+    }
+    .no-data {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #666;
+    }
+</style>
+{% endblock %}

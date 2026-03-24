@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}سوبر ماركت{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff5722;
+            --secondary-color: #ffffff;
+            --background-color: #f3f4f6;
+            --text-color: #333;
+            --nav-hover-color: #ff8a50;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #e64a19);
+            color: var(--secondary-color);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            position: relative;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            background-color: #d84315;
+            padding: 0.75rem;
+            box-shadow: 0 2px 5px var(--shadow-color);
+            flex-wrap: wrap;
+        }
+
+        nav a,
+        nav button {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+        }
+
+        nav a:hover,
+        nav button:hover {
+            color: var(--nav-hover-color);
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), #e64a19);
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 1rem;
+            font-size: 1rem;
+            box-shadow: 0 -4px 10px var(--shadow-color);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .dropbtn {
+            background-color: #ff7043;
+            color: white;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px var(--shadow-color);
+            z-index: 1;
+            border-radius: 6px;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="dropdown">
+            <button class="dropbtn">{{ user.username }} ▼</button>
+            <div class="dropdown-content">
+                <a href="#">الملف الشخصي</a>
+                <a href="{% url 'change_password' %}">تغيير كلمة المرور</a>
+                <form action="{% url 'logout' %}" method="post" style="display:inline">
+                    {% csrf_token %}
+                    <button type="submit" style="background:none; border:none; color: #333; padding: 10px 16px; text-decoration: none; cursor: pointer;">تسجيل الخروج</button>
+                </form>
+            </div>
+        </div>
+        🛒 سوبر ماركت فاخر
+    </header>
+
+    <nav>
+        <a href="{% url 'index' %}">الرئيسية</a>
+        <a href="{% url 'category' %}">الفئات</a>
+        <a href="{% url 'cart_view' %}">السلة</a>
+        <a href="#">اتصل بنا</a>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        &copy; 2025 جميع الحقوق محفوظة | تصميم أنيق واحترافي
+    </footer>
+</body>
+</html>

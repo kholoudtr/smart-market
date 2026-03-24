@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}الصفحة الرئيسية{% endblock %}
+
+{% block content %}
+<section style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    {% for product in products %}
+    <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 250px; text-align: center; transition: transform 0.3s;">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px;">
+        <h3 style="margin: 10px 0; font-size: 1.2rem;">{{ product.name }}</h3>
+        <p style="color: gray; font-size: 0.9rem;">{{ product.category }}</p>
+        <p style="font-weight: bold; color: #ff5722;">{{ product.price }} ل.س</p>
+        {% comment %} <button style="background: #ff5722; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; transition: background 0.3s;">
+            أضف إلى السلة 🛒
+        </button> {% endcomment %}
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

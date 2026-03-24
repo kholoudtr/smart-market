@@ -1,0 +1,16 @@
+{% if cart_items %}
+  <ul>
+    {% for item in cart_items %}
+      <li>
+        🛒 {{ item.product.name }}<br>
+        🔢 الكمية: {{ item.quantity }}<br>
+        💰 السعر: {{ item.product.price }} ل.س<br>
+        ➕ الإجمالي: {{ item.product.price|floatformat:0|add:item.quantity|floatformat:0 }} ل.س
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
+  <p><strong>🧾 المجموع الكلي: {{ total_price }} ل.س</strong></p>
+{% else %}
+  <p>🧺 السلة فارغة حالياً.</p>
+{% endif %}
